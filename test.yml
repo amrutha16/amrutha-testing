@@ -1,0 +1,32 @@
+name: JFrog OIDC Test
+
+on:
+  workflow_dispatch:
+
+permissions:
+  id-token: write
+  contents: read
+
+env:
+  JF_URL: https://migration3.jfrog.io
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Create test artifact
+        run: |
+          mkdir -p dist
+          echo "test" > dist/sample.zip
+
+      - name: Set up JFrog CLI with OIDC
+        uses: jfrog/setup-jfrog-cli@v4
+        with:
+          JF_URL: ${{ env.JF_URL }}
+          oidc-provider-name: 'amrutha-oidc-config-testing'
+
+      - name: Upload artifact to Artifactory
+        run: jf rt upload "dist/*.zip" my-repo/
