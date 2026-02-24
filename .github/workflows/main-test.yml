@@ -8,7 +8,7 @@ permissions:
   contents: read
 
 env:
-  JF_URL: https://migration3.jfrog.io
+  JF_URL: https://migration3.jfrog.i0
 
 jobs:
   build:
