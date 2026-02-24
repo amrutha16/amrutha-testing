@@ -8,6 +8,7 @@ permissions:
   contents: read
 
 env:
+  # MUST match the organization configured in the JFrog OIDC provider
   JF_URL: https://migration3.jfrog.io
 
 jobs:
@@ -25,7 +26,6 @@ jobs:
       - name: Set up JFrog CLI with OIDC
         uses: jfrog/setup-jfrog-cli@v4
         with:
-          JF_URL: ${{ env.JF_URL }}
           oidc-provider-name: 'amrutha-oidc-config-testing'
 
       - name: Upload artifact to Artifactory
